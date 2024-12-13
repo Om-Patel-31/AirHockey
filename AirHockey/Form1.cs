@@ -23,23 +23,23 @@ namespace AirHockey
         //Global variables
         Rectangle player1 = new Rectangle(120, 305, 60, 60);
         Rectangle player1Inner = new Rectangle(135, 320, 30, 30);
-        Rectangle player1Top = new Rectangle(123, 305, 53, 5);
-        Rectangle player1Right = new Rectangle(175, 308,5, 53);
-        Rectangle player1Left = new Rectangle(120, 308, 5, 53);
-        Rectangle player1Bottom = new Rectangle(123, 360, 53, 5);
+        Rectangle player1Top = new Rectangle(130, 308, 40, 5);
+        Rectangle player1Right = new Rectangle(170, 315,5, 40);
+        Rectangle player1Left = new Rectangle(125, 315, 5, 40);
+        Rectangle player1Bottom = new Rectangle(130, 357, 40, 5);
         Rectangle player2 = new Rectangle(855, 305, 60, 60);
-        Rectangle player2Top = new Rectangle(858, 305, 53, 5);
-        Rectangle player2Right = new Rectangle(910, 308, 5, 53);
-        Rectangle player2Left = new Rectangle(853, 308, 5, 53);
-        Rectangle player2Bottom = new Rectangle(858, 360, 53, 5);
+        Rectangle player2Top = new Rectangle(865, 308, 40, 5);
+        Rectangle player2Right = new Rectangle(905, 315, 5, 40);
+        Rectangle player2Left = new Rectangle(860, 315, 5, 40);
+        Rectangle player2Bottom = new Rectangle(865, 357, 40, 5);
         Rectangle player2Inner = new Rectangle(870, 320, 30, 30);
-        Rectangle puck = new Rectangle(495, 310, 50, 50);
+        Rectangle puck = new Rectangle(495, 310, 45, 45);
         Rectangle rightSide = new Rectangle(7, 7, 400, 618);
-        Rectangle rightGoal = new Rectangle(-55, 250, 150, 150);
-        Rectangle rightGoalRect = new Rectangle(0, 258, 15, 135);
+        Rectangle rightGoal = new Rectangle(-55, 245, 145, 145);
+        Rectangle rightGoalRect = new Rectangle(0, 253, 15, 129);
         Rectangle leftSide = new Rectangle(630, 7, 400, 618);
-        Rectangle leftGoal = new Rectangle(950, 250, 150, 150);
-        Rectangle leftGoalRect = new Rectangle(1023, 258, 15, 135);
+        Rectangle leftGoal = new Rectangle(945, 245, 145, 145);
+        Rectangle leftGoalRect = new Rectangle(1023, 253, 15, 129);
         Rectangle middleLine = new Rectangle(460, 275, 120, 120);
 
         int p1Score = 0;
@@ -223,12 +223,12 @@ namespace AirHockey
                 player2Inner.X += playerSpeed;
             }
 
-            if (puck.X < 0 || puck.X > this.Width - puck.Width)
+            if (puck.X < 5 || puck.X > this.Width - puck.Width)
             {
                 puckXSpeed *= -1;
             }
 
-            if (puck.Y < 0 || puck.Y > this.Height - puck.Height)
+            if (puck.Y < 5 || puck.Y > this.Height - puck.Height)
             {
                 puckYSpeed *= -1;
             }
@@ -318,8 +318,8 @@ namespace AirHockey
             purplePen.Width = 10;
             e.Graphics.DrawEllipse(purplePen, middleLine);
             //
-            e.Graphics.FillRectangle(blackBrush, leftGoalRect);
-            e.Graphics.FillRectangle(limeBrush, rightGoalRect);
+            e.Graphics.FillRectangle(limeBrush, leftGoalRect);
+            e.Graphics.FillRectangle(cyanBrush, rightGoalRect);
             //
             cyanPen.Width = 15;
             e.Graphics.FillEllipse(cyanBrush, player1);
