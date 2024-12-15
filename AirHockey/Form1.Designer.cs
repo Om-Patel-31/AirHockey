@@ -66,9 +66,9 @@
             // outputLabel
             // 
             this.outputLabel.AutoSize = true;
-            this.outputLabel.BackColor = System.Drawing.Color.Transparent;
+            this.outputLabel.BackColor = System.Drawing.Color.White;
             this.outputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.outputLabel.ForeColor = System.Drawing.Color.Red;
+            this.outputLabel.ForeColor = System.Drawing.Color.Black;
             this.outputLabel.Location = new System.Drawing.Point(525, 316);
             this.outputLabel.Name = "outputLabel";
             this.outputLabel.Size = new System.Drawing.Size(0, 54);

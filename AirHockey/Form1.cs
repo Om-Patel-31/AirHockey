@@ -1,9 +1,11 @@
 ﻿/*
+
  --------------------------
 | Created by: Om Patel     |
 | Date: December 10, 2024  |
 | A simple air hockey game |
  --------------------------
+
 */
 
 using System;
@@ -45,9 +47,9 @@ namespace AirHockey
         int p1Score = 0;
         int p2Score = 0;
 
-        int playerSpeed = 7;
-        int puckXSpeed = 10;
-        int puckYSpeed = 10;
+        int playerSpeed = 4;
+        int puckXSpeed = 7;
+        int puckYSpeed = 7;
 
         bool wPressed = false;
         bool sPressed = false;
@@ -424,15 +426,15 @@ namespace AirHockey
             //
             e.Graphics.FillEllipse(redBrush, puck);
             //
-            e.Graphics.FillRectangle(whiteBrush, player1Top);
-            e.Graphics.FillRectangle(whiteBrush, player1Right);
-            e.Graphics.FillRectangle(whiteBrush, player1Left);
-            e.Graphics.FillRectangle(whiteBrush, player1Bottom);
+            //e.Graphics.FillRectangle(whiteBrush, player1Top);
+            //e.Graphics.FillRectangle(whiteBrush, player1Right);
+            //e.Graphics.FillRectangle(whiteBrush, player1Left);
+            //e.Graphics.FillRectangle(whiteBrush, player1Bottom);
             //
-            e.Graphics.FillRectangle(whiteBrush, player2Top);
-            e.Graphics.FillRectangle(whiteBrush, player2Right);
-            e.Graphics.FillRectangle(whiteBrush, player2Left);
-            e.Graphics.FillRectangle(whiteBrush, player2Bottom);
+            //e.Graphics.FillRectangle(whiteBrush, player2Top);
+            //e.Graphics.FillRectangle(whiteBrush, player2Right);
+            //e.Graphics.FillRectangle(whiteBrush, player2Left);
+            //e.Graphics.FillRectangle(whiteBrush, player2Bottom);
         }
 
     }
