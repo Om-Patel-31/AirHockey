@@ -316,6 +316,7 @@ namespace AirHockey
             if (puck.IntersectsWith(player2Bottom))
             {
                 puckHit.Play();
+
                 puckYSpeed *= -1;
                 puck.Y = player2.Y + player2.Height;
             }
@@ -323,6 +324,7 @@ namespace AirHockey
             if (p1Score == 3)
             {
                 winner.Play();
+
                 puck.X = 495;
                 puck.Y = 310;
 
@@ -368,6 +370,7 @@ namespace AirHockey
             if (p2Score == 3)
             {
                 winner.Play();
+
                 puck.X = 495;
                 puck.Y = 310;
 
