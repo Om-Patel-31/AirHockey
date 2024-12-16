@@ -26,15 +26,7 @@ namespace AirHockey
         //Global variables
         Rectangle player1 = new Rectangle(120, 305, 60, 60);
         Rectangle player1Inner = new Rectangle(135, 320, 30, 30);
-        Rectangle player1Top = new Rectangle(130, 308, 40, 5);
-        Rectangle player1Right = new Rectangle(170, 315,5, 40);
-        Rectangle player1Left = new Rectangle(125, 315, 5, 40);
-        Rectangle player1Bottom = new Rectangle(130, 357, 40, 5);
         Rectangle player2 = new Rectangle(855, 305, 60, 60);
-        Rectangle player2Top = new Rectangle(865, 308, 40, 5);
-        Rectangle player2Right = new Rectangle(905, 315, 5, 40);
-        Rectangle player2Left = new Rectangle(860, 315, 5, 40);
-        Rectangle player2Bottom = new Rectangle(865, 357, 40, 5);
         Rectangle player2Inner = new Rectangle(870, 320, 30, 30);
         Rectangle puck = new Rectangle(495, 310, 45, 45);
         Rectangle rightSide = new Rectangle(7, 7, 400, 618);
@@ -150,83 +142,51 @@ namespace AirHockey
             puck.X += puckXSpeed;
             puck.Y += puckYSpeed;
 
-            if (wPressed == true && player1Top.Y > 23)
+            if (wPressed == true)
             {
                 player1.Y -= playerSpeed;
-                player1Top.Y -= playerSpeed;
-                player1Bottom.Y -= playerSpeed;
-                player1Left.Y -= playerSpeed;
-                player1Right.Y -= playerSpeed;
                 player1Inner.Y -= playerSpeed;
             }
 
-            if (sPressed == true && player1Bottom.Y < 607)
+            if (sPressed == true)
             {
                 player1.Y += playerSpeed;
-                player1Top.Y += playerSpeed;
-                player1Bottom.Y += playerSpeed;
-                player1Left.Y += playerSpeed;
-                player1Right.Y += playerSpeed;
                 player1Inner.Y += playerSpeed;
             }
 
-            if (dPressed == true && player1Right.X < 387)
+            if (dPressed == true)
             {
                 player1.X += playerSpeed;
-                player1Top.X += playerSpeed;
-                player1Bottom.X += playerSpeed;
-                player1Left.X += playerSpeed;
-                player1Right.X += playerSpeed;
                 player1Inner.X += playerSpeed;
             }
 
-            if (aPressed == true && player1Left.X > 20)
+            if (aPressed == true)
             {
                 player1.X -= playerSpeed;
-                player1Top.X -= playerSpeed;
-                player1Bottom.X -= playerSpeed;
-                player1Left.X -= playerSpeed;
-                player1Right.X -= playerSpeed;
                 player1Inner.X -= playerSpeed;
             }
 
-            if (upPressed == true && player2Top.Y > 23)
+            if (upPressed == true)
             {
                 player2.Y -= playerSpeed;
-                player2Top.Y -= playerSpeed;
-                player2Bottom.Y -= playerSpeed;
-                player2Left.Y -= playerSpeed;
-                player2Right.Y -= playerSpeed;
                 player2Inner.Y -= playerSpeed;
             }
 
-            if (downPressed == true && player2Bottom.Y < 607)
+            if (downPressed == true)
             {
                 player2.Y += playerSpeed;
-                player2Top.Y += playerSpeed;
-                player2Bottom.Y += playerSpeed;
-                player2Left.Y += playerSpeed;
-                player2Right.Y += playerSpeed;
                 player2Inner.Y += playerSpeed;
             }
 
-            if (leftPressed == true && player2Right.X > 690)
+            if (leftPressed == true)
             {
                 player2.X -= playerSpeed;
-                player2Top.X -= playerSpeed;
-                player2Bottom.X -= playerSpeed;
-                player2Left.X -= playerSpeed;
-                player2Right.X -= playerSpeed;
                 player2Inner.X -= playerSpeed;
             }
 
-            if (rightPressed == true && player2Left.X < 965)
+            if (rightPressed == true)
             {
                 player2.X += playerSpeed;
-                player2Top.X += playerSpeed;
-                player2Bottom.X += playerSpeed;
-                player2Left.X += playerSpeed;
-                player2Right.X += playerSpeed;
                 player2Inner.X += playerSpeed;
             }
 
@@ -264,61 +224,72 @@ namespace AirHockey
                 puckXSpeed *= -1;
             }
 
-            if (puck.IntersectsWith(player1Left))
+            if (puck.IntersectsWith(player1))
             {
                 puckHit.Play();
-                puckXSpeed *= -1;
-                puck.X = player1.X - puck.Width;
+
+                Rectangle topRect = new Rectangle(player1.X + 10, player1.Y + 3, 40, 5);
+                Rectangle rightRect = new Rectangle(player1.X + 50, player1.Y + 10, 5, 40);
+                Rectangle leftRect = new Rectangle(player1.X + 5, player1.Y + 10, 5, 40);
+                Rectangle bottomRect = new Rectangle(player1.X + 10, player1.Y + 52, 40, 5);
+
+                if (puck.IntersectsWith(leftRect))
+                {
+                    puckXSpeed *= -1;
+                    puck.X = player1.X - puck.Width;
+                }
+
+                if (puck.IntersectsWith(rightRect))
+                {
+                    puckXSpeed *= -1;
+                    puck.X = player1.X + player1.Width;
+                }
+
+                if (puck.IntersectsWith(topRect))
+                {
+                    puckYSpeed *= -1;
+                    puck.Y = player1.Y - puck.Height;
+                }
+
+                if (puck.IntersectsWith(bottomRect))
+                {
+                    puckYSpeed = -puckYSpeed;
+                    puck.Y = player1.Y + player1.Height;
+                }
             }
 
-            if (puck.IntersectsWith(player1Right))
-            {
-                puckHit.Play();
-                puckXSpeed *= -1;
-                puck.X = player1.X + player1.Width;
-            }
-
-            if (puck.IntersectsWith(player1Top))
-            {
-                puckHit.Play();
-                puckYSpeed *= -1;
-                puck.Y = player1.Y - puck.Height;
-            }
-
-            if (puck.IntersectsWith(player1Bottom))
-            {
-                puckHit.Play();
-                puckYSpeed = -puckYSpeed;
-                puck.Y = player1.Y + player1.Height;
-            }
-
-            if (puck.IntersectsWith(player2Left))
-            {
-                puckHit.Play();
-                puckXSpeed *= -1;
-                puck.X = player2.X - puck.Width;
-            }
-
-            if (puck.IntersectsWith(player2Right))
-            {
-                puckHit.Play();
-                puckXSpeed *= -1;
-                puck.X = player2.X + player2.Width;
-            }
-
-            if (puck.IntersectsWith(player2Top))
-            {
-                puckHit.Play();
-                puckYSpeed *= -1;
-                puck.Y = player2.Y - puck.Height;
-            }
-
-            if (puck.IntersectsWith(player2Bottom))
+            if (puck.IntersectsWith(player2))
             {
                 puckHit.Play();
 
-                puckYSpeed *= -1;
-                puck.Y = player2.Y + player2.Height;
+                Rectangle topRect = new Rectangle(player2.X + 10, player2.Y + 3, 40, 5);
+                Rectangle rightRect = new Rectangle(player2.X + 50, player2.Y + 10, 5, 40);
+                Rectangle leftRect = new Rectangle(player2.X + 5, player2.Y + 10, 5, 40);
+                Rectangle bottomRect = new Rectangle(player2.X + 10, player2.Y + 52, 40, 5);
+
+                if (puck.IntersectsWith(leftRect))
+                {
+                    puckXSpeed *= -1;
+                    puck.X = player2.X - puck.Width;
+                }
+
+                if (puck.IntersectsWith(rightRect))
+                {
+                    puckXSpeed *= -1;
+                    puck.X = player2.X + player2.Width;
+                }
+
+                if (puck.IntersectsWith(topRect))
+                {
+                    puckYSpeed *= -1;
+                    puck.Y = player2.Y - puck.Height;
+                }
+
+                if (puck.IntersectsWith(bottomRect))
+                {
+                    puckYSpeed = -puckYSpeed;
+                    puck.Y = player2.Y + player2.Height;
+                }
             }
 
             if (p1Score == 3)
@@ -334,39 +305,15 @@ namespace AirHockey
                 player1Inner.X = 135;
                 player1Inner.Y = 320;
 
-                player1Top.X = 130;
-                player1Top.Y = 308;
-
-                player1Right.X = 170;
-                player1Right.Y = 315;
-
-                player1Left.X = 125;
-                player1Left.Y = 315;
-
-                player1Bottom.X = 130;
-                player1Bottom.Y = 357;
-
                 player2.X = 855;
                 player2.Y = 305;
-                
+
                 player2Inner.X = 870;
                 player2Inner.Y = player1Inner.Y;
-                
-                player2Top.X = 865;
-                player2Top.Y = 308;
-                
-                player2Right.X = 905;
-                player2Right.Y = 315;
-                
-                player2Left.X = 860;
-                player2Left.Y = 315;
-                
-                player2Bottom.X = 866;
-                player2Bottom.Y = 357;
 
                 outputLabel.Text = "Player1 Wins!";
             }
-            
+
             if (p2Score == 3)
             {
                 winner.Play();
@@ -380,42 +327,13 @@ namespace AirHockey
                 player1Inner.X = 135;
                 player1Inner.Y = 320;
 
-                player1Top.X = 130;
-                player1Top.Y = 308;
-
-                player1Right.X = 170;
-                player1Right.Y = 315;
-
-                player1Left.X = 125;
-                player1Left.Y = 315;
-
-                player1Bottom.X = 130;
-                player1Bottom.Y = 357;
-
                 player2.X = 855;
                 player2.Y = 305;
 
                 player2Inner.X = 870;
                 player2Inner.Y = player1Inner.Y;
 
-                player2Top.X = 865;
-                player2Top.Y = 308;
-
-                player2Right.X = 905;
-                player2Right.Y = 315;
-
-                player2Left.X = 860;
-                player2Left.Y = 315;
-
-                player2Bottom.X = 866;
-                player2Bottom.Y = 357;
-                
                 outputLabel.Text = "Player2 Wins!";
-            }
-
-            if (puck.Y < 0)
-            {
-                puck.Y = 10;
             }
 
             Refresh();
@@ -435,8 +353,8 @@ namespace AirHockey
             purplePen.Width = 10;
             e.Graphics.DrawEllipse(purplePen, middleLine);
             //
-            e.Graphics.FillRectangle(limeBrush, leftGoalRect);
-            e.Graphics.FillRectangle(cyanBrush, rightGoalRect);
+            e.Graphics.FillRectangle(blackBrush, leftGoalRect);
+            e.Graphics.FillRectangle(blackBrush, rightGoalRect);
             //
             cyanPen.Width = 15;
             e.Graphics.FillEllipse(cyanBrush, player1);
@@ -447,16 +365,6 @@ namespace AirHockey
             e.Graphics.DrawEllipse(blackPen, player2Inner);
             //
             e.Graphics.FillEllipse(redBrush, puck);
-            //
-            //e.Graphics.FillRectangle(whiteBrush, player1Top);
-            //e.Graphics.FillRectangle(whiteBrush, player1Right);
-            //e.Graphics.FillRectangle(whiteBrush, player1Left);
-            //e.Graphics.FillRectangle(whiteBrush, player1Bottom);
-            //
-            //e.Graphics.FillRectangle(whiteBrush, player2Top);
-            //e.Graphics.FillRectangle(whiteBrush, player2Right);
-            //e.Graphics.FillRectangle(whiteBrush, player2Left);
-            //e.Graphics.FillRectangle(whiteBrush, player2Bottom);
         }
 
     }
