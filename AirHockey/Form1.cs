@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,6 +71,10 @@ namespace AirHockey
         Pen purplePen = new Pen(Color.Purple);
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
+
+        SoundPlayer puckHit = new SoundPlayer(Properties.Resources.puckMovement);
+        SoundPlayer puckGoal = new SoundPlayer(Properties.Resources.puckGoal);
+        SoundPlayer winner = new SoundPlayer(Properties.Resources.winnerDrumRoll);
 
         public Form1()
         {
@@ -237,6 +242,8 @@ namespace AirHockey
 
             if (puck.IntersectsWith(leftGoalRect))
             {
+                puckGoal.Play();
+
                 p1Score += 1;
                 p1ScoreLabel.Text = $"{p1Score}";
 
@@ -247,6 +254,8 @@ namespace AirHockey
 
             if (puck.IntersectsWith(rightGoalRect))
             {
+                puckGoal.Play();
+
                 p2Score += 1;
                 p2ScoreLabel.Text = $"{p2Score}";
 
@@ -257,54 +266,63 @@ namespace AirHockey
 
             if (puck.IntersectsWith(player1Left))
             {
+                puckHit.Play();
                 puckXSpeed *= -1;
                 puck.X = player1.X - puck.Width;
             }
 
             if (puck.IntersectsWith(player1Right))
             {
+                puckHit.Play();
                 puckXSpeed *= -1;
                 puck.X = player1.X + player1.Width;
             }
 
             if (puck.IntersectsWith(player1Top))
             {
+                puckHit.Play();
                 puckYSpeed *= -1;
                 puck.Y = player1.Y - puck.Height;
             }
 
             if (puck.IntersectsWith(player1Bottom))
             {
+                puckHit.Play();
                 puckYSpeed = -puckYSpeed;
                 puck.Y = player1.Y + player1.Height;
             }
 
             if (puck.IntersectsWith(player2Left))
             {
+                puckHit.Play();
                 puckXSpeed *= -1;
                 puck.X = player2.X - puck.Width;
             }
 
             if (puck.IntersectsWith(player2Right))
             {
+                puckHit.Play();
                 puckXSpeed *= -1;
                 puck.X = player2.X + player2.Width;
             }
 
             if (puck.IntersectsWith(player2Top))
             {
+                puckHit.Play();
                 puckYSpeed *= -1;
                 puck.Y = player2.Y - puck.Height;
             }
 
             if (puck.IntersectsWith(player2Bottom))
             {
+                puckHit.Play();
                 puckYSpeed *= -1;
                 puck.Y = player2.Y + player2.Height;
             }
 
             if (p1Score == 3)
             {
+                winner.Play();
                 puck.X = 495;
                 puck.Y = 310;
 
@@ -349,6 +367,7 @@ namespace AirHockey
             
             if (p2Score == 3)
             {
+                winner.Play();
                 puck.X = 495;
                 puck.Y = 310;
 
@@ -393,7 +412,7 @@ namespace AirHockey
 
             if (puck.Y < 0)
             {
-                puck.Y = 0;
+                puck.Y = 10;
             }
 
             Refresh();
