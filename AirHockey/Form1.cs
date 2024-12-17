@@ -3,7 +3,7 @@
  --------------------------
 | Created by: Om Patel     |
 | Date: December 10, 2024  |
-| A simple air hockey game |
+| A 2d air hockey game     |
  --------------------------
 
 */
@@ -37,22 +37,23 @@ namespace AirHockey
         Rectangle leftGoalRect = new Rectangle(1023, 253, 15, 129);
         Rectangle middleLine = new Rectangle(460, 275, 120, 120);
 
-        int p1Score = 0;
-        int p2Score = 0;
+        int p1Score = 0; //player1's score
+        int p2Score = 0; //player2's score
 
-        int playerSpeed = 4;
-        int puckXSpeed = 7;
-        int puckYSpeed = 7;
+        int playerSpeed = 4; //players' speed
+        int puckXSpeed = 7; //puck's speed for travelling on x axis
+        int puckYSpeed = 7; //puck's speed for travelling on y axis
 
-        bool wPressed = false;
-        bool sPressed = false;
-        bool aPressed = false;
-        bool dPressed = false;
-        bool upPressed = false;
-        bool downPressed = false;
-        bool leftPressed = false;
-        bool rightPressed = false;
+        bool wPressed = false; //check if 'w' is pressed
+        bool sPressed = false; //check if 's' is pressed
+        bool aPressed = false; //check if 'a' is pressed
+        bool dPressed = false; //check if 'd' is pressed
+        bool upPressed = false; //check if 'up' Arrow is pressed
+        bool downPressed = false; //check if 'down' Arrow is pressed
+        bool leftPressed = false; //check if 'left' Arrow is pressed
+        bool rightPressed = false; //check if 'right' Arrow is pressed
 
+        //declaring brushes and pens
         SolidBrush cyanBrush = new SolidBrush(Color.Cyan);
         Pen cyanPen = new Pen(Color.Cyan);
         SolidBrush limeBrush = new SolidBrush(Color.Lime);
@@ -64,6 +65,7 @@ namespace AirHockey
         SolidBrush redBrush = new SolidBrush(Color.Red);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
 
+        //declaring sound players for sound effects
         SoundPlayer puckHit = new SoundPlayer(Properties.Resources.puckMovement);
         SoundPlayer puckGoal = new SoundPlayer(Properties.Resources.puckGoal);
         SoundPlayer winner = new SoundPlayer(Properties.Resources.winnerDrumRoll);
@@ -72,9 +74,10 @@ namespace AirHockey
         {
             InitializeComponent();
 
-            gameTimer.Start();
+            gameTimer.Start(); //starting the gameTimer as soon as the game is run
         }
 
+        //check if keys are pressed ir not
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -137,97 +140,101 @@ namespace AirHockey
             }
         }
 
+        //telling the timer what to do in a 16ms interval
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            puck.X += puckXSpeed;
-            puck.Y += puckYSpeed;
+            puck.X += puckXSpeed; //increasing puck's x value to be puck's x speed
+            puck.Y += puckYSpeed; //increasing puck's y value to be puck's y speed
 
-            if (wPressed == true && player1.Y > 20)
+            if (wPressed == true && player1.Y > 20) //check if w is pressed and player's y value is greater than 20
             {
                 player1.Y -= playerSpeed;
                 player1Inner.Y -= playerSpeed;
             }
 
-            if (sPressed == true && player1.Y < this.Height - player1.Height - 20)
+            if (sPressed == true && player1.Y < this.Height - player1.Height - 20) //check if s is pressed and player's y value is less than player height subtracted from form height and 20 subtracted from that
             {
                 player1.Y += playerSpeed;
                 player1Inner.Y += playerSpeed;
             }
 
-            if (dPressed == true && player1.X < middleLine.X - 20)
+            if (dPressed == true && player1.X < middleLine.X - 20) //check if d is pressed and player's x value is less than 20 subtracted from middle line
             {
                 player1.X += playerSpeed;
                 player1Inner.X += playerSpeed;
             }
 
-            if (aPressed == true && player1.X > 20)
+            if (aPressed == true && player1.X > 20) //check if a is pressed and player's x value is greater than 20
             {
                 player1.X -= playerSpeed;
                 player1Inner.X -= playerSpeed;
             }
 
-            if (upPressed == true && player2.Y > 20)
+            if (upPressed == true && player2.Y > 20) //check if up is pressed and player's y value is greater than 20
             {
                 player2.Y -= playerSpeed;
                 player2Inner.Y -= playerSpeed;
             }
 
-            if (downPressed == true && player2.Y < this.Height - player2.Height - 20)
+            if (downPressed == true && player2.Y < this.Height - player2.Height - 20) //check if down is pressed and player's y value is less than player height subtracted from form height and 20 subtracted from that
             {
                 player2.Y += playerSpeed;
                 player2Inner.Y += playerSpeed;
             }
 
-            if (leftPressed == true && player2.X > middleLine.X + 80)
+            if (leftPressed == true && player2.X > middleLine.X + 80) //check if left is pressed and player's x value is less than 20 subtracted from middle line
             {
                 player2.X -= playerSpeed;
                 player2Inner.X -= playerSpeed;
             }
 
-            if (rightPressed == true && player2.X < this.Width - player2.Width - 20)
+            if (rightPressed == true && player2.X < this.Width - player2.Width - 20) //check if a is pressed and player's x value is greater than 20
             {
                 player2.X += playerSpeed;
                 player2Inner.X += playerSpeed;
             }
 
-            if (puck.X < 5 || puck.X > this.Width - puck.Width)
+            //check if puck is hitting anywhere and bouncing it off accordingly
+            if (puck.X < 10 || puck.X > this.Width - puck.Width - 10)
             {
                 puckHit.Play();
 
                 puckXSpeed *= -1;
             }
 
-            if (puck.Y < 5 || puck.Y > this.Height - puck.Height)
+            if (puck.Y < 10 || puck.Y > this.Height - puck.Height - 10)
             {
                 puckHit.Play();
 
                 puckYSpeed *= -1;
             }
 
-            //if (puck.IntersectsWith(leftGoalRect))
-            //{
-            //    puckGoal.Play();
+            //checking for goal scored and adding point accordingly
+            if (puck.IntersectsWith(leftGoalRect))
+            {
+                puckGoal.Play();
 
-            //    p1Score += 1;
-            //    p1ScoreLabel.Text = $"{p1Score}";
+                p1Score += 1;
+                p1ScoreLabel.Text = $"{p1Score}";
 
-            //    puck.X = 495;
-            //    puck.Y = 310;
-            //    puckXSpeed *= -1;
-            //}
+                puck.X = 495;
+                puck.Y = 310;
+                puckXSpeed *= -1;
+            }
 
-            //if (puck.IntersectsWith(rightGoalRect))
-            //{
-            //    puckGoal.Play();
+            if (puck.IntersectsWith(rightGoalRect))
+            {
+                puckGoal.Play();
 
-            //    p2Score += 1;
-            //    p2ScoreLabel.Text = $"{p2Score}";
+                p2Score += 1;
+                p2ScoreLabel.Text = $"{p2Score}";
 
-            //    puck.X = 495;
-            //    puck.Y = 310;
-            //    puckXSpeed *= -1;
-            //}
+                puck.X = 495;
+                puck.Y = 310;
+                puckXSpeed *= -1;
+            }
 
+            //check if puck is touching the player1 and bouncing it off accordingly
             if (puck.IntersectsWith(player1))
             {
                 puckHit.Play();
@@ -262,6 +269,7 @@ namespace AirHockey
                 }
             }
 
+            //check if puck is touching player2 and bouncing it off accordingly
             if (puck.IntersectsWith(player2))
             {
                 puckHit.Play();
@@ -296,10 +304,12 @@ namespace AirHockey
                 }
             }
 
+            //check who won and declaring the winner if either player has 3 points
             if (p1Score == 3)
             {
-                winner.Play();
+                winner.Play(); //playing a win sound
 
+                //resetting everything to their original positions
                 puck.X = 495;
                 puck.Y = 310;
 
@@ -315,13 +325,14 @@ namespace AirHockey
                 player2Inner.X = 870;
                 player2Inner.Y = player1Inner.Y;
 
-                outputLabel.Text = "Player1 Wins!";
+                outputLabel.Text = "Player1 Wins!"; //displaying that player1 won
             }
 
             if (p2Score == 3)
             {
-                winner.Play();
+                winner.Play(); //playing a win sound
 
+                //resetting everything to their original positions
                 puck.X = 495;
                 puck.Y = 310;
 
@@ -337,37 +348,38 @@ namespace AirHockey
                 player2Inner.X = 870;
                 player2Inner.Y = player1Inner.Y;
 
-                outputLabel.Text = "Player2 Wins!";
+                outputLabel.Text = "Player2 Wins!"; //displaying that player2 won
             }
 
-            Refresh();
+            Refresh(); //refreshing after every time
         }
-
+        
+        //drawing stuff so it can be controlled
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //
+            //drawing player1 side
             e.Graphics.DrawRectangle(cyanPen, rightSide);
             e.Graphics.DrawEllipse(cyanPen, rightGoal);
-            //
+            //drawing player2 side
             e.Graphics.DrawRectangle(limePen, leftSide);
             e.Graphics.DrawEllipse(limePen, leftGoal);
-            //
+            //drawing center line
             purplePen.Width = 15;
             e.Graphics.DrawLine(purplePen, 520, 0, 520, 800);
             purplePen.Width = 10;
             e.Graphics.DrawEllipse(purplePen, middleLine);
-            //
+            //drawing the goals
             e.Graphics.FillRectangle(blackBrush, leftGoalRect);
             e.Graphics.FillRectangle(blackBrush, rightGoalRect);
-            //
+            //drawing the first player
             cyanPen.Width = 15;
             e.Graphics.FillEllipse(cyanBrush, player1);
             e.Graphics.DrawEllipse(blackPen, player1Inner);
-            //
+            //drawing the second player
             limePen.Width = 15;
             e.Graphics.FillEllipse(limeBrush, player2);
             e.Graphics.DrawEllipse(blackPen, player2Inner);
-            //
+            //drawing the puck
             e.Graphics.FillEllipse(redBrush, puck);
         }
 
