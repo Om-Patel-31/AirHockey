@@ -142,49 +142,49 @@ namespace AirHockey
             puck.X += puckXSpeed;
             puck.Y += puckYSpeed;
 
-            if (wPressed == true)
+            if (wPressed == true && player1.Y > 20)
             {
                 player1.Y -= playerSpeed;
                 player1Inner.Y -= playerSpeed;
             }
 
-            if (sPressed == true)
+            if (sPressed == true && player1.Y < this.Height - player1.Height - 20)
             {
                 player1.Y += playerSpeed;
                 player1Inner.Y += playerSpeed;
             }
 
-            if (dPressed == true)
+            if (dPressed == true && player1.X < middleLine.X - 20)
             {
                 player1.X += playerSpeed;
                 player1Inner.X += playerSpeed;
             }
 
-            if (aPressed == true)
+            if (aPressed == true && player1.X > 20)
             {
                 player1.X -= playerSpeed;
                 player1Inner.X -= playerSpeed;
             }
 
-            if (upPressed == true)
+            if (upPressed == true && player2.Y > 20)
             {
                 player2.Y -= playerSpeed;
                 player2Inner.Y -= playerSpeed;
             }
 
-            if (downPressed == true)
+            if (downPressed == true && player2.Y < this.Height - player2.Height - 20)
             {
                 player2.Y += playerSpeed;
                 player2Inner.Y += playerSpeed;
             }
 
-            if (leftPressed == true)
+            if (leftPressed == true && player2.X > middleLine.X + 80)
             {
                 player2.X -= playerSpeed;
                 player2Inner.X -= playerSpeed;
             }
 
-            if (rightPressed == true)
+            if (rightPressed == true && player2.X < this.Width - player2.Width - 20)
             {
                 player2.X += playerSpeed;
                 player2Inner.X += playerSpeed;
@@ -192,37 +192,41 @@ namespace AirHockey
 
             if (puck.X < 5 || puck.X > this.Width - puck.Width)
             {
+                puckHit.Play();
+
                 puckXSpeed *= -1;
             }
 
             if (puck.Y < 5 || puck.Y > this.Height - puck.Height)
             {
+                puckHit.Play();
+
                 puckYSpeed *= -1;
             }
 
-            if (puck.IntersectsWith(leftGoalRect))
-            {
-                puckGoal.Play();
+            //if (puck.IntersectsWith(leftGoalRect))
+            //{
+            //    puckGoal.Play();
 
-                p1Score += 1;
-                p1ScoreLabel.Text = $"{p1Score}";
+            //    p1Score += 1;
+            //    p1ScoreLabel.Text = $"{p1Score}";
 
-                puck.X = 495;
-                puck.Y = 310;
-                puckXSpeed *= -1;
-            }
+            //    puck.X = 495;
+            //    puck.Y = 310;
+            //    puckXSpeed *= -1;
+            //}
 
-            if (puck.IntersectsWith(rightGoalRect))
-            {
-                puckGoal.Play();
+            //if (puck.IntersectsWith(rightGoalRect))
+            //{
+            //    puckGoal.Play();
 
-                p2Score += 1;
-                p2ScoreLabel.Text = $"{p2Score}";
+            //    p2Score += 1;
+            //    p2ScoreLabel.Text = $"{p2Score}";
 
-                puck.X = 495;
-                puck.Y = 310;
-                puckXSpeed *= -1;
-            }
+            //    puck.X = 495;
+            //    puck.Y = 310;
+            //    puckXSpeed *= -1;
+            //}
 
             if (puck.IntersectsWith(player1))
             {
